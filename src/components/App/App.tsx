@@ -35,7 +35,7 @@ const App = () => {
     setError(false);
   };
 
-  const handleOpenModal = (urls: string, alt: string) => {
+  const handleOpenModal = (urls: string, alt: string): void => {
     setOpening({ link: urls, description: alt });
 
     setModalIsOpen(true);
@@ -77,16 +77,16 @@ const App = () => {
       />
 
       {gallery.length > 0 && (
-        <ImageGallery onOpenModal={handleOpenModal} photos={gallery} />
+        <ImageGallery openModal={handleOpenModal} photos={gallery} />
       )}
 
-      {error !== false && <ErrorMessage message={error} />}
+      {error !== false && <ErrorMessage />}
 
       {loader && <Loader />}
 
       {gallery.length > 0 && !loader && page < totalPage && (
         <LoadMoreBtn
-          more={() => {
+          onLoadMore={() => {
             setPage(page + 1);
           }}
         />
@@ -96,8 +96,8 @@ const App = () => {
         <ImageModal
           modalIsOpen={modalIsOpen}
           onClose={handleCloseModal}
-          link={opening.link}
-          description={opening.description}
+          urlBig={opening.link}
+          alt={opening.description}
         />
       )}
 

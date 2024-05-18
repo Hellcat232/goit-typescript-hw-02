@@ -1,18 +1,23 @@
-const ImageCard = ({
-  card: {
-    urls: { small, regular },
-    alt_description,
-  },
+interface ImageCardProps {
+  alt: string;
+  url: string;
+  urlBig: string;
+
+  openModal: (regular: string, alt_description: string) => void;
+}
+
+const ImageCard: React.FC<ImageCardProps> = ({
+  alt,
+  url,
+  urlBig,
   openModal,
 }) => {
   return (
     <div>
       <img
-        onClick={() => {
-          openModal(regular, alt_description);
-        }}
-        src={small}
-        alt={alt_description}
+        src={url}
+        alt={alt}
+        onClick={() => openModal(urlBig, alt)}
         width="400"
         height="300"
       />

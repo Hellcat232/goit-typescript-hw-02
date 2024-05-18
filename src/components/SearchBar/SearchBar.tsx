@@ -1,25 +1,39 @@
 import css from "./SearchBar.module.css";
 import { IoMdSearch } from "react-icons/io";
+import { useState } from "react";
 
-const SearchBar = ({ onSubmit, onEmpty }) => {
-  const hendleSubmitForm = (event) => {
-    event.preventDefault();
+interface SearchBarProps {
+  onSubmit: (query: string) => void;
+  onEmpty: () => void;
+}
 
-    if (event.target.elements.search.value.trim() === "") return onEmpty();
+const SearchBar: React.FC<SearchBarProps> = ({ onSubmit, onEmpty }) => {
+  const [text, setText] = useState<string>("");
 
-    onSubmit(event.target.elements.search.value);
+  function changeText(e: React.ChangeEvent<HTMLInputElement>) {
+    setText(e.target.value);
+  }
 
-    event.target.reset();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (text.trim() === "") {
+      onEmpty();
+      return;
+    } else {
+      onSubmit(text);
+      setText("");
+    }
   };
-
   return (
     <header className={css.header}>
-      <form className={css.form} onSubmit={hendleSubmitForm}>
+      <form className={css.form} onSubmit={handleSubmit}>
         <input
           className={css.input}
           name="search"
           type="text"
           placeholder="Search images and photos"
+          onChange={changeText}
+          value={text}
         />
         <button className={css.button} type="submit">
           <IoMdSearch />
