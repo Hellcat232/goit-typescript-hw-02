@@ -1,3 +1,5 @@
+import { Data } from "./API";
+
 export interface ModalPhoto {
   link: string;
   description: string;

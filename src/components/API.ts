@@ -9,7 +9,7 @@ const params = {
   per_page: 20,
 };
 
-interface Data {
+export interface Data {
   results: Photo[];
   total: number;
   total_pages: number;

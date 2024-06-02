@@ -53,6 +53,8 @@ const App = () => {
 
       try {
         const { results, total_pages } = await fetchApi(query, page);
+        console.log(results);
+
         setGallery((prevGallery) => [...prevGallery, ...results]);
 
         setTotalPage(total_pages);
